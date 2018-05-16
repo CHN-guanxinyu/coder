@@ -2,7 +2,8 @@ package com.speful.graphx.example
 
 import java.io.File
 
-import com.speful.spark.utils.{SimpleGraphX, SimpleSpark}
+import com.speful.graphx.utils.SimpleGraphX
+import com.speful.spark.utils.SimpleSpark
 import org.apache.spark.graphx.util.{GraphGenerators => GraphGen}
 
 object TestGraphGenAndSave extends App{

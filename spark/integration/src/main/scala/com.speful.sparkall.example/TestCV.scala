@@ -1,12 +1,15 @@
-package com.speful.graphx.example
+package com.speful.sparkall.example
 
 import java.awt.image.{BufferedImage, DataBufferInt}
 import java.awt.{Color, Image}
 import java.io.File
 
-import com.speful.spark.utils.{SimpleGraphX, SimpleSpark}
+import com.speful.graphx.utils.SimpleGraphX
+import com.speful.spark.utils.SimpleSpark
 import javax.imageio.ImageIO
 import org.apache.spark.graphx.{Edge, Graph}
+import org.apache.spark.mllib.clustering.PowerIterationClustering
+import org.apache.spark.mllib.clustering.PowerIterationClustering.Assignment
 
 /**
   * 无法单机运行
