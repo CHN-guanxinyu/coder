@@ -51,6 +51,11 @@ lazy val spark_streaming = preownedKittenProject( "spark-streaming" , "spark/str
   settings( libraryDependencies += Lib.spark.streaming )
 
 
+//spark 各个模块集成
+lazy val spark_integration = preownedKittenProject("spark-integration" , "spark/integration").
+  dependsOn(spark_core , spark_sql , spark_mllib , spark_graphx , spark_streaming )
+
+
 
 /**
   * scala learning
