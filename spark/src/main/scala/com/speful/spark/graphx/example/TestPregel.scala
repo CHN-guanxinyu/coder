@@ -1,6 +1,6 @@
 package com.speful.spark.graphx.example
 
-import com.speful.spark.SimpleSpark
+import com.speful.spark.utils.SimpleSpark
 import org.apache.spark.graphx._
 
 object TestPregel extends App {

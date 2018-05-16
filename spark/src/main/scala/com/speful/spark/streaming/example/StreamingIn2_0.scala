@@ -2,7 +2,7 @@ package com.speful.spark.streaming.example
 
 import java.util.Properties
 
-import com.speful.spark.SimpleSQL
+import com.speful.spark.utils.SimpleSQL
 import org.apache.spark.sql.streaming.{OutputMode, Trigger}
 import org.apache.spark.sql.types.{StringType => TString, StructField => SF, StructType => ST}
 

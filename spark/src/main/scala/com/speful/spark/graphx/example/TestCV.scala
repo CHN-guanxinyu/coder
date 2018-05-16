@@ -4,7 +4,7 @@ import java.awt.image.{BufferedImage, DataBufferInt}
 import java.awt.{Color, Image}
 import java.io.File
 
-import com.speful.spark.{SimpleGraphX, SimpleSpark}
+import com.speful.spark.utils.{SimpleGraphX, SimpleSpark}
 import javax.imageio.ImageIO
 import org.apache.spark.graphx.{Edge, Graph}
 import org.apache.spark.mllib.clustering.PowerIterationClustering

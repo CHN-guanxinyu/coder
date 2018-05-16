@@ -1,6 +1,6 @@
 package com.speful.spark.streaming.example
 
-import com.speful.spark.SimpleStreaming
+import com.speful.spark.utils.SimpleStreaming
 
 
 object OnlineBlackListFilter extends App{

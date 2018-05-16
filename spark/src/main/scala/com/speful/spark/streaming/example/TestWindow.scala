@@ -1,6 +1,6 @@
 package com.speful.spark.streaming.example
 
-import com.speful.spark.SimpleStreaming
+import com.speful.spark.utils.SimpleStreaming
 import org.apache.spark.streaming.Seconds
 
 object TestWindow extends App{

@@ -3,7 +3,7 @@ package com.speful.spark.streaming.example
 import java.text.SimpleDateFormat
 import java.util.Date
 
-import com.speful.spark.SimpleStreaming
+import com.speful.spark.utils.SimpleStreaming
 import org.apache.spark.storage.StorageLevel
 
 import scala.util.Random
