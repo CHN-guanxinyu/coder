@@ -9,18 +9,15 @@ object SimpleSpark extends CoreEnv {
 
   def context(
               appName: String = appName,
-              master: String = master,
               opts: List[(String, String)] = Nil
-             ) = Sc.getOrCreate( conf( appName, master, opts ) )
+             ) = Sc.getOrCreate( conf( appName, opts ) )
 
 
   def conf(
            appName: String,
-           master: String,
            opts: List[(String, String)]
          )=
     new Sconf().
-      setMaster(master).
       setAppName(appName).
       set("spark.scheduler.mode", schedulerMode).
       set("spark.serializer", serializer).

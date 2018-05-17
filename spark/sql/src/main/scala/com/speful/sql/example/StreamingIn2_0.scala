@@ -28,9 +28,7 @@ object StreamingIn2_0 extends App {
     .schema( schema )
     .load("E:/test/")
 
-  val properties = new Properties() >>
-    (_ setProperty("user","user124")) >>
-    (_ setProperty("password","123"))
+  val properties = new Properties() >>    (_ setProperty("user","user124")) >>    (_ setProperty("password","123"))
 
   val jdbcData = sqlContext.read.jdbc(
     dbUrl,

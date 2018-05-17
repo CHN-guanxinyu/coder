@@ -14,13 +14,12 @@ object SimpleStreaming extends StreamingEnv {
 
   def context(
            appName: String = appName,
-           master: String = master,
            opts: List[(String, String)] = Nil,
            seconds: Int = 1
          ) = {
 
     Ssc.getActiveOrCreate( () => new Ssc(
-      SimpleSpark.conf( appName, master, opts )
+      SimpleSpark.conf( appName, opts )
         //提升job并行度,解决串行方式下,偶然单次数据量剧增导致的短任务延时高的问题
         .set("spark.streaming.concurrentJobs" , concurrentJobs)
         //反压机制,详见博文https://www.jianshu.com/p/87e2d66d92bb

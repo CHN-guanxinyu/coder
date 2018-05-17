@@ -5,17 +5,17 @@ import org.apache.log4j.Level
 import org.apache.spark.sql.streaming.OutputMode
 
 
-object StructuedStreaming extends App {
+object StructuredStreaming extends App {
 
   SimpleSQL.logger setLevel Level.ERROR
 
-  val spark = SimpleSQL.context("Structured Streaming")
+  val spark = SimpleSQL.context("Structured Streaming" )
 
   import spark.implicits._
 
   val lines = spark.readStream.
     format("socket").
-    option("host" , "localhost").
+    option("host" , "master").
     option("port" , 9999).load
 
 

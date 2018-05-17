@@ -32,7 +32,12 @@ lazy val spark = preownedKittenProject("spark" , "spark").
 
 lazy val spark_core = preownedKittenProject("spark-core" , "spark/core").
   dependsOn(spark).
-  settings( libraryDependencies += Lib.spark.core )
+  settings( libraryDependencies ++=
+    Seq(
+      Lib.spark.core
+    ) ++
+    Lib.hbase.all
+  )
 
 lazy val spark_sql = preownedKittenProject("spark-sql" , "spark/sql").
   dependsOn(spark_core).

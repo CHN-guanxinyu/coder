@@ -16,7 +16,7 @@ import org.apache.spark.mllib.clustering.PowerIterationClustering.Assignment
   * TODO : 原图片1024*683，笛卡尔积生成庞大数量的Edge对象，导致内存剧增，需解决
   */
 object TestCV extends App {
-  lazy val sc = SimpleSpark.context(master = "spark://master:7077")
+  lazy val sc = SimpleSpark.context()
 
 
 
