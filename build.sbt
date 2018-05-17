@@ -34,7 +34,8 @@ lazy val spark_core = preownedKittenProject("spark-core" , "spark/core").
   dependsOn(spark).
   settings( libraryDependencies ++=
     Seq(
-      Lib.spark.core
+      Lib.spark.core,
+      Lib.hadoop_client
     ) ++
     Lib.hbase.all
   )
