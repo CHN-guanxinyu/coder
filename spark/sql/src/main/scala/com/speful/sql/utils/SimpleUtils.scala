@@ -8,11 +8,14 @@ import org.apache.spark.sql.{SparkSession => Sss}
 
 object SimpleSQL extends SqlEnv {
 
-  def context( appName: String = appName,
+  def context(
+               master : String = "",
+               appName: String = appName,
                opts: List[(String, String)] = Nil ) =
     Sss.builder.config(SimpleSpark.conf(
       appName,
-      opts
+      opts,
+      master
     )).getOrCreate
 
 }

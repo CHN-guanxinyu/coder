@@ -8,20 +8,30 @@ import org.apache.spark.{SparkConf => Sconf, SparkContext => Sc}
 object SimpleSpark extends CoreEnv {
 
   def context(
+              master : String = "",
               appName: String = appName,
               opts: List[(String, String)] = Nil
-             ) = Sc.getOrCreate( conf( appName, opts ) )
+             ) = Sc.getOrCreate( conf( appName, opts , master ) )
 
 
   def conf(
            appName: String,
-           opts: List[(String, String)]
-         )=
-    new Sconf().
+           opts: List[(String, String)],
+           master : String
+         )={
+    val cfg = new Sconf().
       setAppName(appName).
       set("spark.scheduler.mode", schedulerMode).
       set("spark.serializer", serializer).
       setAll(opts)
+
+    if("" equals master) cfg else{
+      cfg setMaster master
+      cfg
+    }
+  }
+
+
 
 
 }
