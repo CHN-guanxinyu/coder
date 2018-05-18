@@ -5,18 +5,18 @@ import it.nerdammer.spark.hbase._
 
 object HbaseReader extends App {
 
-  val spark = SimpleSQL.
-    context("local[*]","Hbase Reader" )
+  val spark = SimpleSQL.context(
+    args(0) ,
+    "Hbase Reader" ,
+    Map("spark.hbase.host" -> "master")
+  )
 
   val sc = spark.sparkContext
 
-  sc.hadoopConfiguration.
-    set("spark.hbase.host" , "172.16.0.104")
-
   val hbaseRDD = sc.
-    hbaseTable[(String ,String, String)]("dbn").
-    select("action" , "time" , "value" ).
-    inColumnFamily("INFO")
+    hbaseTable[(Int ,Int, String)]("mytable").
+    select("column1", "column2" ).
+    inColumnFamily("mycf")
 
   hbaseRDD.collect foreach println
 

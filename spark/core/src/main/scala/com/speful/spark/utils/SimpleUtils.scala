@@ -10,13 +10,13 @@ object SimpleSpark extends CoreEnv {
   def context(
               master : String = "",
               appName: String = appName,
-              opts: List[(String, String)] = Nil
+              opts: Map[String, String] = Map.empty
              ) = Sc.getOrCreate( conf( appName, opts , master ) )
 
 
   def conf(
            appName: String,
-           opts: List[(String, String)],
+           opts: Map[String, String],
            master : String
          )={
     val cfg = new Sconf().

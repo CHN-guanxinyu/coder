@@ -6,7 +6,6 @@ import com.speful.spark.base.Defaults._
 import com.speful.spark.utils.SimpleSpark
 import com.speful.streaming.base.Defaults._
 import com.speful.streaming.base.{Defaults, StreamingEnv}
-import org.apache.hadoop.hbase.protobuf.generated.ZooKeeperProtos.Master
 import org.apache.spark.streaming.{Seconds, StreamingContext => Ssc}
 
 
@@ -16,7 +15,7 @@ object SimpleStreaming extends StreamingEnv {
   def context(
            master: String = "",
            appName: String = appName,
-           opts: List[(String, String)] = Nil,
+           opts: Map[String, String] = Map.empty,
            seconds: Int = 1
          ) = {
 

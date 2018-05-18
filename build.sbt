@@ -35,13 +35,7 @@ lazy val spark =
 lazy val spark_core =
   preownedKittenProject("spark-core" , "spark/core").
   dependsOn(spark).
-  settings( libraryDependencies ++=
-    Seq(
-      Lib.spark.core,
-      Lib.hadoop_client
-    ) ++
-    Lib.hbase.all
-  )
+  settings( libraryDependencies += Lib.spark.core )
 
 lazy val spark_sql =
   preownedKittenProject("spark-sql" , "spark/sql").
@@ -67,7 +61,17 @@ lazy val spark_streaming =
 //spark 各个模块集成
 lazy val spark_integration =
   preownedKittenProject("spark-integration" , "spark/integration").
-  dependsOn(spark_core , spark_sql , spark_mllib , spark_graphx , spark_streaming )
+  dependsOn( spark_core , spark_sql , spark_mllib , spark_graphx , spark_streaming ).
+  settings(
+    libraryDependencies ++= Seq(
+      Lib.hadoop_client,
+      Lib.hbase.common,
+      Lib.hbase.client,
+      Lib.hbase.server,
+      Lib.hbase.spark_connector
+
+    )
+  )
 
 
 
@@ -84,13 +88,13 @@ lazy val deepScala =
   */
 lazy val myTests =
   preownedKittenProject("myTests" , "myTests").
+  dependsOn(root).
   settings(
     libraryDependencies ++= Seq(
       Lib.spark.core,
       Lib.hbase.common,
       Lib.hbase.client,
       Lib.hbase.server,
-      Lib.scalaTest,
       Lib.hbase.spark_connector,
       Lib.hadoop_client
     )

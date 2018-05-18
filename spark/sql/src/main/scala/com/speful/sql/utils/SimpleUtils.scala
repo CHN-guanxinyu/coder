@@ -11,7 +11,7 @@ object SimpleSQL extends SqlEnv {
   def context(
                master : String = "",
                appName: String = appName,
-               opts: List[(String, String)] = Nil ) =
+               opts: Map[String, String] = Map.empty ) =
     Sss.builder.config(SimpleSpark.conf(
       appName,
       opts,
