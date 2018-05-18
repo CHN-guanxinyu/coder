@@ -19,7 +19,8 @@ lazy val root = preownedKittenProject("root" , ".").
          |While the provided code may still work, we recommend that you
          |upgrade your version of Java.
     """.stripMargin
-    }else "" ))
+    }else "" )),
+    libraryDependencies ++= Dependencies.core
   ).settings(CommonSetting.projectSettings)
 
 
@@ -27,10 +28,12 @@ lazy val root = preownedKittenProject("root" , ".").
   * Spark related
   */
 
-lazy val spark = preownedKittenProject("spark" , "spark").
+lazy val spark =
+  preownedKittenProject("spark" , "spark").
   dependsOn(root)
 
-lazy val spark_core = preownedKittenProject("spark-core" , "spark/core").
+lazy val spark_core =
+  preownedKittenProject("spark-core" , "spark/core").
   dependsOn(spark).
   settings( libraryDependencies ++=
     Seq(
@@ -40,25 +43,30 @@ lazy val spark_core = preownedKittenProject("spark-core" , "spark/core").
     Lib.hbase.all
   )
 
-lazy val spark_sql = preownedKittenProject("spark-sql" , "spark/sql").
+lazy val spark_sql =
+  preownedKittenProject("spark-sql" , "spark/sql").
   dependsOn(spark_core).
   settings( libraryDependencies += Lib.spark.sql )
 
-lazy val spark_mllib = preownedKittenProject("spark-mllib" , "spark/mllib").
+lazy val spark_mllib =
+  preownedKittenProject("spark-mllib" , "spark/mllib").
   dependsOn(spark_core).
   settings( libraryDependencies += Lib.spark.mllib )
 
-lazy val spark_graphx = preownedKittenProject("spark-graphx" , "spark/graphx").
+lazy val spark_graphx =
+  preownedKittenProject("spark-graphx" , "spark/graphx").
   dependsOn(spark_core).
   settings( libraryDependencies += Lib.spark.graphx )
 
-lazy val spark_streaming = preownedKittenProject( "spark-streaming" , "spark/streaming").
+lazy val spark_streaming =
+  preownedKittenProject( "spark-streaming" , "spark/streaming").
   dependsOn(spark_core).
   settings( libraryDependencies += Lib.spark.streaming )
 
 
 //spark 各个模块集成
-lazy val spark_integration = preownedKittenProject("spark-integration" , "spark/integration").
+lazy val spark_integration =
+  preownedKittenProject("spark-integration" , "spark/integration").
   dependsOn(spark_core , spark_sql , spark_mllib , spark_graphx , spark_streaming )
 
 
@@ -67,9 +75,27 @@ lazy val spark_integration = preownedKittenProject("spark-integration" , "spark/
   * scala learning
   */
 
-lazy val deepScala = preownedKittenProject("deepScala" , "deepScala").
+lazy val deepScala =
+  preownedKittenProject("deepScala" , "deepScala").
   dependsOn(root)
 
+/**
+  * free example
+  */
+lazy val myTests =
+  preownedKittenProject("myTests" , "myTests").
+  settings(
+    libraryDependencies ++= Seq(
+      Lib.spark.core,
+      Lib.hbase.common,
+      Lib.hbase.client,
+      Lib.hbase.server,
+      Lib.scalaTest,
+      Lib.hbase.spark_connector,
+      Lib.hadoop_client
+    )
+
+  )
 
 
 
@@ -81,7 +107,6 @@ def preownedKittenProject(name : String , path : String ) : Project ={
     settings(
       version := "0.1.0",
       organization := "com.speful",
-      libraryDependencies ++= Dependencies.core,
       scalaVersion := Version.scala
     )
 }

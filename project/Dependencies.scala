@@ -5,23 +5,33 @@ object Dependencies {
   val core = Seq(
     Lib.lombok,
     Lib.scalaCheck,
-    Lib.slf4j_impl
+    Lib.slf4j_impl,
+    Lib.log4j_api,
+    Lib.scalaTest
   )
 }
 
 object Version{
+  //scala
   val scala = "2.11.7"
+  val scalaTest = "2.2.4"
+  val scalaCheck = "1.13.0"
+
+  //spark
   val spark = "2.3.0"
 
-  val lombok = "1.16.20"
-  val scalaCheck = "1.13.0"
+  //hadoop
+  val hadoop = "2.5.2"
+
+  //hbase
   val hbase = "1.0.2"
+  val hbase_spark_connr = "1.0.2"
 
-  val hbase_spark_connr = "1.0.3"
 
-  val hadoop = "2.7.0"
+  val lombok = "1.16.20"
 
-  val slf4j = "2.11.0"
+  val log4j = "2.11.0"
+
 
   object min{
     val jdk = "1.8"
@@ -29,8 +39,12 @@ object Version{
 }
 
 object Lib{
+
   val lombok          = "org.projectlombok"           %"lombok"         %Version.lombok
+
   val scalaCheck      = "org.scalacheck"              %%"scalacheck"    %Version.scalaCheck
+  val scalaTest = "org.scalatest" % "scalatest_2.11" % Version.scalaTest % "test"
+
   object spark{
     private def foo( md : String ) = "org.apache.spark"          %%s"spark-$md"      %Version.spark excludeAll(ExclusionRule(organization="joda-time"), ExclusionRule(organization="org.slf4j"), ExclusionRule(organization="com.sun.jersey.jersey-test-framework"), ExclusionRule(organization="org.apache.hadoop"))
 
@@ -44,7 +58,21 @@ object Lib{
   }
 
   object hbase{
-    private def foo( md : String )="org.apache.hbase"   %s"hbase-$md"  %Version.hbase
+    private def foo( md : String )="org.apache.hbase"   %s"hbase-$md"  %Version.hbase excludeAll(
+      ExclusionRule(
+        organization = "javax.servlet",
+        name="javax.servlet-api"
+      ),
+      ExclusionRule(
+        organization = "org.mortbay.jetty",
+        name="jetty"
+      ),
+      ExclusionRule(
+        organization = "org.mortbay.jetty",
+        name="servlet-api-2.5"
+      )
+    )
+
     val client          = foo("client")
     val common          = foo("common")
     val server          = foo("server")
@@ -58,7 +86,9 @@ object Lib{
 
   val hadoop_client = "org.apache.hadoop" % "hadoop-client" % Version.hadoop excludeAll(ExclusionRule(organization="joda-time"), ExclusionRule(organization="org.slf4j"))
 
-  //val slf4j = "org.slf4j" % "slf4j-api" % "1.7.7"
-  val slf4j_impl = "org.apache.logging.log4j" % "log4j-slf4j-impl" %Version.slf4j
+  val slf4j_api = "org.slf4j" % "slf4j-api" % "1.7.7"
+  val slf4j_impl = "org.apache.logging.log4j" % "log4j-slf4j-impl" %Version.log4j
+  val log4j_api = "org.apache.logging.log4j" % "log4j-api" %Version.log4j
+
 
 }
