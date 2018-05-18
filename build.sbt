@@ -55,7 +55,10 @@ lazy val spark_graphx =
 lazy val spark_streaming =
   preownedKittenProject( "spark-streaming" , "spark/streaming").
   dependsOn(spark_core).
-  settings( libraryDependencies += Lib.spark.streaming )
+  settings( libraryDependencies ++= Seq(
+    Lib.spark.streaming,
+    Lib.spark.streaming_kafka
+  ))
 
 
 //spark 各个模块集成
@@ -68,8 +71,8 @@ lazy val spark_integration =
       Lib.hbase.common,
       Lib.hbase.client,
       Lib.hbase.server,
-      Lib.hbase.spark_connector
-
+      Lib.hbase.spark_connector,
+      Lib.kafka
     )
   )
 

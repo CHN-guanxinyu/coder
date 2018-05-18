@@ -23,6 +23,8 @@ object Version{
   //hadoop
   val hadoop = "2.5.2"
 
+  val kafka = "1.1.0"
+
   //hbase
   val hbase = "1.0.2"
   val hbase_spark_connr = hbase
@@ -61,6 +63,7 @@ object Lib{
     val mllib           = foo("mllib")
     val graphx          = foo("graphx")
     val streaming       = foo("streaming")
+    val streaming_kafka = foo("streaming-kafka-0-10")
 
     val all = Seq( core , sql , mllib , graphx , streaming )
   }
@@ -100,6 +103,8 @@ object Lib{
     ExclusionRule(organization="joda-time"),
     ExclusionRule(organization="org.slf4j")
   )
+
+  val kafka = "org.apache.kafka" % "kafka_2.11" % Version.kafka
 
   val slf4j_api = "org.slf4j" % "slf4j-api" % Version.slf4j
   val slf4j_impl = "org.apache.logging.log4j" % "log4j-slf4j-impl" %Version.log4j
