@@ -1,4 +1,4 @@
-package com.speful.sparkall.example
+package com.speful.mllib.example
 
 import com.speful.sql.utils.SimpleSQL
 import org.apache.spark.ml.clustering.KMeans

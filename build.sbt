@@ -44,7 +44,7 @@ lazy val spark_sql =
 
 lazy val spark_mllib =
   preownedKittenProject("spark-mllib" , "spark/mllib").
-  dependsOn(spark_core).
+  dependsOn(spark_core , spark_sql).
   settings( libraryDependencies += Lib.spark.mllib )
 
 lazy val spark_graphx =
