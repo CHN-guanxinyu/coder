@@ -13,9 +13,9 @@ lazy val root = preownedKittenProject("root" , ".").
       IO.write( propFile , content )
       Seq(propFile)
     },
-    onLoadMessage ~= ( _ + ( if( (sys props "java.specification.version") < Version.min_jdk ) {
+    onLoadMessage ~= ( _ + ( if( (sys props "java.specification.version") < Version.min.jdk ) {
       s"""
-         |You seem to not be running Java ${Version.min_jdk}.
+         |You seem to not be running Java ${Version.min.jdk}.
          |While the provided code may still work, we recommend that you
          |upgrade your version of Java.
     """.stripMargin
