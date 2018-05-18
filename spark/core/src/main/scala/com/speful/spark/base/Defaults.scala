@@ -33,7 +33,6 @@ trait CoreEnv {
   import Defaults.systemProperties._
 
   System.setProperty("spark.task.maxFailures", taskMaxFailures)
-  System.setProperty("spark.akka.timeout", akkaTimeout)
   System.setProperty("spark.network.timeout", networkTimeout)
 
   implicit def _2str: Any => String = _ toString
