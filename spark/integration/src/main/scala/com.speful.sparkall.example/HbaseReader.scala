@@ -22,3 +22,21 @@ object HbaseReader extends App {
 
 
 }
+
+object HbaseWriter extends App{
+  val spark = SimpleSQL.context(
+    args(0),
+    "Hbase Writer",
+    Map("spark.hbase.host" -> "master")
+  )
+
+  val sc = spark.sparkContext
+
+  val rdd = sc.makeRDD(1 to 100).
+    map(i => (i, i+1, "Hello World"))
+
+  rdd.toHBaseTable("mytable").
+    toColumns("column1", "column2").
+    inColumnFamily("mycf").
+    save()
+}
