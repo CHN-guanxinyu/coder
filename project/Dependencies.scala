@@ -11,6 +11,9 @@ object Dependencies {
   )
 }
 
+
+
+
 object Version{
   //scala
   val scala = "2.11.7"
@@ -35,6 +38,7 @@ object Version{
   val log4j = "2.11.0"
   val slf4j = "1.7.7"
 
+  val jackson = "2.6.2"
 
   object min{
     val jdk = "1.8"
@@ -42,21 +46,36 @@ object Version{
 }
 
 
+
+
+
+
+
+
 object Lib{
 
-  val lombok          = "org.projectlombok"           %"lombok"         %Version.lombok
+  val lombok          = "org.projectlombok"           %"lombok"                       % Version.lombok
+  val scalaCheck      = "org.scalacheck"              %%"scalacheck"                  % Version.scalaCheck
+  val scalaTest       = "org.scalatest"               % "scalatest_2.11"              % Version.scalaTest     % "test"
 
-  val scalaCheck      = "org.scalacheck"              %%"scalacheck"    %Version.scalaCheck
+  val slf4j_api       = "org.slf4j"                   % "slf4j-api"                   % Version.slf4j
+  val slf4j_impl      = "org.apache.logging.log4j"    % "log4j-slf4j-impl"            % Version.log4j
+  val log4j_api       = "org.apache.logging.log4j"    % "log4j-api"                   % Version.log4j
 
-  val scalaTest = "org.scalatest" % "scalatest_2.11" % Version.scalaTest % "test"
+  object jackson {
+    val core          = "com.fasterxml.jackson.core"  % "jackson-core"                % Version.jackson
+    val databind      = "com.fasterxml.jackson.core"  % "jackson-databind"            % Version.jackson
+    val mudule_scala  = "com.fasterxml.jackson.module"% "jackson-module-scala_2.11"   % Version.jackson
+  }
+
+
 
   object spark{
-    private def foo( md : String ) = "org.apache.spark" %% s"spark-$md" % Version.spark/* excludeAll(
+    private def foo( md : String ) = "org.apache.spark" %% s"spark-$md" % Version.spark excludeAll(
       ExclusionRule(organization="joda-time"),
       ExclusionRule(organization="org.slf4j"),
-      ExclusionRule(organization="com.sun.jersey.jersey-test-framework"),
-      ExclusionRule(organization="org.apache.hadoop")
-    )*/
+      ExclusionRule(organization="com.sun.jersey.jersey-test-framework")
+    )
 
     val core            = foo("core")
     val sql             = foo("sql")
@@ -104,11 +123,10 @@ object Lib{
     ExclusionRule(organization="org.slf4j")
   )
 
-  val kafka = "org.apache.kafka" % "kafka_2.11" % Version.kafka
+  val kafka = "org.apache.kafka" % "kafka_2.11" % Version.kafka excludeAll(
+    ExclusionRule("com.fasterxml.jackson.core")
+  )
 
-  val slf4j_api = "org.slf4j" % "slf4j-api" % Version.slf4j
-  val slf4j_impl = "org.apache.logging.log4j" % "log4j-slf4j-impl" %Version.log4j
-  val log4j_api = "org.apache.logging.log4j" % "log4j-api" %Version.log4j
 
 
 }

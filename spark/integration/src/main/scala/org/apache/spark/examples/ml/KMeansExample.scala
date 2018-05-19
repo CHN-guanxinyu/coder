@@ -20,6 +20,7 @@ package org.apache.spark.examples.ml
 // scalastyle:off println
 
 // $example on$
+import com.speful.sql.utils.SimpleSQL
 import org.apache.spark.ml.clustering.KMeans
 import org.apache.spark.ml.evaluation.ClusteringEvaluator
 // $example off$
@@ -35,14 +36,14 @@ import org.apache.spark.sql.SparkSession
 object KMeansExample {
 
   def main(args: Array[String]): Unit = {
-    val spark = SparkSession
-      .builder
-      .appName(s"${this.getClass.getSimpleName}")
-      .getOrCreate()
+    val spark = SimpleSQL.context(
+      args(0),
+      s"${this.getClass.getSimpleName}"
+    )
 
     // $example on$
     // Loads data.
-    val dataset = spark.read.format("libsvm").load("data/mllib/sample_kmeans_data.txt")
+    val dataset = spark.read.format("libsvm").load("spark/data/mllib/sample_kmeans_data.txt")
 
     // Trains a k-means model.
     val kmeans = new KMeans().setK(2).setSeed(1L)

@@ -72,8 +72,12 @@ lazy val spark_integration =
       Lib.hbase.client,
       Lib.hbase.server,
       Lib.hbase.spark_connector,
-      Lib.kafka
+      Lib.kafka,
+      Lib.jackson.core,
+      Lib.jackson.databind,
+      Lib.jackson.mudule_scala
     )
+
   )
 
 

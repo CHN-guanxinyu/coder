@@ -19,6 +19,7 @@
 package org.apache.spark.examples.ml
 
 // $example on$
+import com.speful.sql.utils.SimpleSQL
 import org.apache.spark.ml.evaluation.RegressionEvaluator
 import org.apache.spark.ml.recommendation.ALS
 // $example off$
@@ -43,14 +44,14 @@ object ALSExample {
   // $example off$
 
   def main(args: Array[String]) {
-    val spark = SparkSession
-      .builder
-      .appName("ALSExample")
-      .getOrCreate()
+    val spark = SimpleSQL.context(
+      args(0),
+      "ALSExample"
+    )
     import spark.implicits._
 
     // $example on$
-    val ratings = spark.read.textFile("data/mllib/als/sample_movielens_ratings.txt")
+    val ratings = spark.read.textFile("spark/data/mllib/als/sample_movielens_ratings.txt")
       .map(parseRating)
       .toDF()
     val Array(training, test) = ratings.randomSplit(Array(0.8, 0.2))
