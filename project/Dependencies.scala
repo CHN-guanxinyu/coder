@@ -71,11 +71,7 @@ object Lib{
 
 
   object spark{
-    private def foo( md : String ) = "org.apache.spark" %% s"spark-$md" % Version.spark excludeAll(
-      ExclusionRule(organization="joda-time"),
-      ExclusionRule(organization="org.slf4j"),
-      ExclusionRule(organization="com.sun.jersey.jersey-test-framework")
-    )
+    private def foo( md : String ) = "org.apache.spark" %% s"spark-$md" % Version.spark
 
     val core            = foo("core")
     val sql             = foo("sql")
