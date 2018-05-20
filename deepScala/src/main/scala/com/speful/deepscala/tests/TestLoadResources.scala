@@ -1,7 +1,6 @@
-package com.speful.deep
+package com.speful.deepscala.tests
 
 import scala.io.Source
-
 
 object TestLoadResources extends App{
   val classLoader = Thread.currentThread getContextClassLoader

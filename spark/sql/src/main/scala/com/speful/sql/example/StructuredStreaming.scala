@@ -1,6 +1,7 @@
-package com.speful.sparkall.example
+package com.speful.sql.example
 
 import com.speful.sql.utils.SimpleSpark
+import org.apache.spark
 import org.apache.spark.sql.streaming.OutputMode
 
 

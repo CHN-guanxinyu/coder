@@ -1,4 +1,4 @@
-package com.speful.deep
+package com.speful.deepscala.tests
 
 object ExtendsTest extends App{
   c bar //1 2

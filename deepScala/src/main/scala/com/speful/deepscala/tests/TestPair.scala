@@ -1,4 +1,4 @@
-package com.speful.deep
+package com.speful.deepscala.tests
 
 /**
   * 测试将List(a,b,c,d,e)变为

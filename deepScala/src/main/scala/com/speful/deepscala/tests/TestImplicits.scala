@@ -1,6 +1,4 @@
-package com.speful.deep
-
-import com.speful.deep.implicits._
+package com.speful.deepscala.tests
 
 /**
   * 测试隐式转换的一种方式
