@@ -25,10 +25,8 @@ import scala.math.random
 /** Computes an approximation to pi */
 object SparkPi {
   def main(args: Array[String]) {
-    val spark = SimpleSQL.context(
-      args(0),
-      s"${this.getClass.getSimpleName}"
-    )
+    val spark = SimpleSQL context s"${this.getClass.getSimpleName}"
+
     val slices = if (args.length > 0) args(1).toInt else 2
     val n = math.min(100000L * slices, Int.MaxValue).toInt // avoid overflow
     val count = spark.sparkContext.parallelize(1 until n, slices).map { i =>

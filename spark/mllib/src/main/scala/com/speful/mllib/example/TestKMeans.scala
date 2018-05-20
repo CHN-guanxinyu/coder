@@ -4,10 +4,7 @@ import com.speful.sql.utils.SimpleSQL
 import org.apache.spark.ml.clustering.KMeans
 
 object TestKMeans extends App {
-  val spark = SimpleSQL.context(
-    args(0),
-    "KMeans"
-  )
+  val spark = SimpleSQL context "KMeans"
 
   val data = spark.read.
     format("libsvm").

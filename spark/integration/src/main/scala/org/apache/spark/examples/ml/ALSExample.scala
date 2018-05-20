@@ -44,14 +44,12 @@ object ALSExample {
   // $example off$
 
   def main(args: Array[String]) {
-    val spark = SimpleSQL.context(
-      args(0),
-      "ALSExample"
-    )
+    val spark = SimpleSQL context "ALSExample"
+
     import spark.implicits._
 
     // $example on$
-    val ratings = spark.read.textFile("spark/data/mllib/als/sample_movielens_ratings.txt")
+    val ratings = spark.read.textFile("data/mllib/als/sample_movielens_ratings.txt")
       .map(parseRating)
       .toDF()
     val Array(training, test) = ratings.randomSplit(Array(0.8, 0.2))

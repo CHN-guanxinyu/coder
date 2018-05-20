@@ -7,8 +7,6 @@ import org.apache.spark.sql.streaming.OutputMode
 
 object StructuredStreaming extends App {
 
-  SimpleSQL.logger setLevel Level.ERROR
-
   val spark = SimpleSQL.context("Structured Streaming" )
 
   import spark.implicits._
