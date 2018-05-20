@@ -55,9 +55,7 @@ object TestPair extends App{
 
 
 case class test[T](data : List[T]){
-  def scanFoo: Unit ={
-    //===================================================================================
-    //1.scan
+  def scanFoo ={
     implicit class Slider[T]( li : List[ T ] ) {
       def |\| =
         li.drop(2).scan( li head , li.tail head ){
@@ -68,7 +66,7 @@ case class test[T](data : List[T]){
   }
 
 
-  def slidingFoo: Unit ={
+  def slidingFoo ={
     implicit class Slider2[T]( li : List[ T ] ){
       def |\| = li sliding 2 map{case f :: s :: tails => (f , s) } toList
     }
@@ -76,7 +74,7 @@ case class test[T](data : List[T]){
     data |\|
   }
 
-  def listApiFoo: Unit ={
+  def listApiFoo ={
     implicit class Slider3[T]( li : List[ T ] ){
       def |\| = null.asInstanceOf[T] :: li zip li tail
     }
@@ -84,7 +82,7 @@ case class test[T](data : List[T]){
     data |\|
   }
 
-  def foldFoo: Unit ={
+  def foldFoo ={
     implicit class Slider4[T]( li : List[ T ] ){
 
       def |\| = (((li head , li.tail head) :: Nil) /: li.drop(2)){
