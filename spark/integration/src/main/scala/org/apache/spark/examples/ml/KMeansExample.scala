@@ -20,11 +20,10 @@ package org.apache.spark.examples.ml
 // scalastyle:off println
 
 // $example on$
-import com.speful.sql.utils.SimpleSQL
+import com.speful.sql.utils.SimpleSpark
 import org.apache.spark.ml.clustering.KMeans
 import org.apache.spark.ml.evaluation.ClusteringEvaluator
 // $example off$
-import org.apache.spark.sql.SparkSession
 
 /**
  * An example demonstrating k-means clustering.
@@ -33,12 +32,9 @@ import org.apache.spark.sql.SparkSession
  * bin/run-example ml.KMeansExample
  * }}}
  */
-object KMeansExample {
+object KMeansExample extends SimpleSpark{
 
   def main(args: Array[String]): Unit = {
-    val spark = SimpleSQL.context(
-      s"${this.getClass.getSimpleName}"
-    )
 
     // $example on$
     // Loads data.

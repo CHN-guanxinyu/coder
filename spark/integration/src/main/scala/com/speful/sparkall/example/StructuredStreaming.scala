@@ -1,15 +1,10 @@
 package com.speful.sparkall.example
 
-import com.speful.sql.utils.SimpleSQL
-import org.apache.log4j.Level
+import com.speful.sql.utils.SimpleSpark
 import org.apache.spark.sql.streaming.OutputMode
 
 
-object StructuredStreaming extends App {
-
-  val spark = SimpleSQL.context("Structured Streaming" )
-
-  import spark.implicits._
+object StructuredStreaming extends App with SimpleSpark{
 
   val lines = spark.readStream.
     format("socket").

@@ -1,10 +1,9 @@
 package com.speful.mllib.example
 
-import com.speful.sql.utils.SimpleSQL
+import com.speful.sql.utils.SimpleSpark
 import org.apache.spark.ml.clustering.KMeans
 
-object TestKMeans extends App {
-  val spark = SimpleSQL context "KMeans"
+object TestKMeans extends App with SimpleSpark{
 
   val data = spark.read.
     format("libsvm").

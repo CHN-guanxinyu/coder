@@ -3,12 +3,11 @@ package com.speful.streaming.example
 import com.speful.streaming.utils.SimpleStreaming
 
 
-object OnlineBlackListFilter extends App{
+object OnlineBlackListFilter extends App with SimpleStreaming {
 
+  override def seconds: Int = 2
 
-  lazy val ssc = SimpleStreaming.context( seconds = 10 )
-
-  val blackList = ssc.sparkContext.makeRDD(Array(
+  val blackList = sc.makeRDD(Array(
     ("Spy" , true),
     ("Cheater" , true)
   ))

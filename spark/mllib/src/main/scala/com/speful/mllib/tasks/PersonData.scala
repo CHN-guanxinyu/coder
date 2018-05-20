@@ -1,9 +1,10 @@
 package com.speful.mllib.tasks
 
-import com.speful.sql.utils.SimpleSQL
+import com.speful.sql.utils.SimpleSpark
 
-object PersonData extends App {
-  implicit lazy val spark = SimpleSQL context "Person Data"
+
+object PersonData extends App with SimpleSpark{
+  override val appName: String = "Person data hello"
 
   val url =
     "jdbc:mysql://172.16.0.36:3306/" +
@@ -15,7 +16,8 @@ object PersonData extends App {
   val user = "root"
   val passwd = "root01"
 
-  val data = SimpleSQL jdbc( url , table , user , passwd )
+  println( spark.sparkContext.appName )
+
 
 
 }

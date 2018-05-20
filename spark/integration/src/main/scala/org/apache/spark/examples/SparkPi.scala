@@ -18,14 +18,13 @@
 // scalastyle:off println
 package org.apache.spark.examples
 
-import com.speful.sql.utils.SimpleSQL
+import com.speful.sql.utils.SimpleSpark
 
 import scala.math.random
 
 /** Computes an approximation to pi */
-object SparkPi {
+object SparkPi extends SimpleSpark{
   def main(args: Array[String]) {
-    val spark = SimpleSQL context s"${this.getClass.getSimpleName}"
 
     val slices = if (args.length > 0) args(1).toInt else 2
     val n = math.min(100000L * slices, Int.MaxValue).toInt // avoid overflow

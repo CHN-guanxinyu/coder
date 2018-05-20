@@ -56,8 +56,7 @@ lazy val spark_streaming =
   preownedKittenProject( "spark-streaming" , "spark/streaming").
   dependsOn(spark_core).
   settings( libraryDependencies ++= Seq(
-    Lib.spark.streaming,
-    Lib.spark.streaming_kafka
+    Lib.spark.streaming
   ))
 
 

@@ -12,6 +12,11 @@ object Defaults {
   val backPressureEnabled = true
   val dynamicAllocationEnabled = true
 
+  val defualtSecond = 1
+
 }
 
-trait StreamingEnv extends CoreEnv
+trait StreamingEnv extends CoreEnv{
+  import Defaults._
+  def seconds = defualtSecond
+}

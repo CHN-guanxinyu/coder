@@ -1,16 +1,9 @@
 package com.speful.sparkall.example
 
-import com.speful.sql.utils.SimpleSQL
+import com.speful.sql.utils.SimpleSpark
 import it.nerdammer.spark.hbase._
 
-object HbaseReader extends App {
-
-  val spark = SimpleSQL.context(
-    "Hbase Reader" ,
-    Map("spark.hbase.host" -> "master")
-  )
-
-  val sc = spark.sparkContext
+object HbaseReader extends App with SimpleSpark {
 
   val hbaseRDD = sc.
     hbaseTable[(Int ,Int, String)]("mytable").
@@ -22,13 +15,7 @@ object HbaseReader extends App {
 
 }
 
-object HbaseWriter extends App{
-  val spark = SimpleSQL.context(
-    "Hbase Writer",
-    Map("spark.hbase.host" -> "master")
-  )
-
-  val sc = spark.sparkContext
+object HbaseWriter extends App with SimpleSpark{
 
   val rdd = sc.makeRDD(1 to 100).
     map(i => (i, i+1, "Hello World"))

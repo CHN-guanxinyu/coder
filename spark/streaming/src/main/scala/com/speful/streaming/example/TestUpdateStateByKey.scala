@@ -3,8 +3,7 @@ package com.speful.streaming.example
 import com.speful.streaming.utils.SimpleStreaming
 
 
-object TestUpdateStateByKey extends App {
-  val ssc = SimpleStreaming.context()
+object TestUpdateStateByKey extends App with SimpleStreaming {
 
   ssc.checkpoint("E:/spark/checkpoint/")
 

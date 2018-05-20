@@ -2,28 +2,23 @@ package com.speful.sql.utils
 
 import java.util.Properties
 
-import com.speful.spark.base.Defaults._
-import com.speful.spark.utils.SimpleSpark
-import com.speful.sql.base.SqlEnv
+import com.speful.spark.utils.SimpleCore
+import com.speful.sql.base.SparkEnv
 import org.apache.spark.sql.{DataFrame, SparkSession => Sss}
 
 
-object SimpleSQL extends SqlEnv {
+trait SimpleSpark extends SparkEnv with SimpleCore{
 
-  def context(
-               appName: String = appName,
-               opts: Map[String, String] = Map.empty ) =
-    Sss.builder.config(SimpleSpark.conf(
-      appName,
-      opts
-    )).getOrCreate
+
+
+  lazy val spark = Sss.builder config sparkConf getOrCreate
 
   def jdbc(
           url : String,
           table : String,
           user : String,
           passwd : String
-          )(implicit spark : Sss) : DataFrame ={
+          ): DataFrame ={
     val prop = new Properties
     prop.setProperty("user" , user)
     prop.setProperty("password" , passwd)

@@ -3,10 +3,10 @@ package com.speful.graphx.utils
 import java.io.PrintWriter
 
 import com.speful.graphx.base.GraphXEnv
+import com.speful.spark.utils.SimpleCore
 import org.apache.spark.graphx.{Edge, Graph}
 
-object SimpleGraphX extends GraphXEnv{
-
+trait SimpleGraphX extends GraphXEnv with SimpleCore{
   /**
     * 将`graph`对象存储到`path`
     * @param path

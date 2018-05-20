@@ -1,11 +1,9 @@
 package com.speful.spark.example
 
-import com.speful.spark.utils.SimpleSpark
-
-object WordCount extends App {
+import com.speful.spark.utils.SimpleCore
 
 
-  val sc = SimpleSpark.context("WordCountTest" )
+object WordCount extends App with SimpleCore{
 
   val data = "hello world world hello hello spark hello scala"
 

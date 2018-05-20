@@ -1,11 +1,9 @@
 package com.speful.graphx.example
 
-import com.speful.spark.utils.SimpleSpark
+import com.speful.graphx.utils.SimpleGraphX
 import org.apache.spark.graphx._
 
-object TestPregel extends App {
-  val sc = SimpleSpark.context()
-
+object TestPregel extends App with SimpleGraphX{
   val vertices = sc.makeRDD(
     Array(
       (1 , "Ann"),

@@ -3,8 +3,7 @@ package com.speful.streaming.example
 import com.speful.streaming.utils.SimpleStreaming
 import org.apache.spark.streaming.Seconds
 
-object TestWindow extends App{
-  val ssc = SimpleStreaming.context()
+object TestWindow extends App with SimpleStreaming {
 
   ssc.socketTextStream("localhost" , 9999)
     .flatMap(_ split " ")

@@ -1,10 +1,9 @@
 package com.speful.graphx.example
 
-import com.speful.spark.utils.SimpleSpark
+import com.speful.graphx.utils.SimpleGraphX
 import org.apache.spark.graphx.{Edge, Graph}
 
-object TestAggregateMessages extends App {
-  val sc = SimpleSpark.context()
+object TestAggregateMessages extends App with SimpleGraphX{
 
   val vertices = sc.makeRDD(
     Array(

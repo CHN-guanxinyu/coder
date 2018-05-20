@@ -8,10 +8,7 @@ import org.apache.spark.storage.StorageLevel
 
 import scala.util.Random
 
-object SparkStreaming extends App {
-
-
-  val ssc = SimpleStreaming.context()
+object SparkStreaming extends App with SimpleStreaming {
 
 
   val wordCounts = ssc.socketTextStream("localhost",9999 , StorageLevel.MEMORY_ONLY)

@@ -19,11 +19,10 @@
 package org.apache.spark.examples.ml
 
 // $example on$
-import com.speful.sql.utils.SimpleSQL
+import com.speful.sql.utils.SimpleSpark
 import org.apache.spark.ml.evaluation.RegressionEvaluator
 import org.apache.spark.ml.recommendation.ALS
 // $example off$
-import org.apache.spark.sql.SparkSession
 
 /**
  * An example demonstrating ALS.
@@ -32,7 +31,7 @@ import org.apache.spark.sql.SparkSession
  * bin/run-example ml.ALSExample
  * }}}
  */
-object ALSExample {
+object ALSExample extends SimpleSpark{
 
   // $example on$
   case class Rating(userId: Int, movieId: Int, rating: Float, timestamp: Long)
@@ -44,9 +43,6 @@ object ALSExample {
   // $example off$
 
   def main(args: Array[String]) {
-    val spark = SimpleSQL context "ALSExample"
-
-    import spark.implicits._
 
     // $example on$
     val ratings = spark.read.textFile("data/mllib/als/sample_movielens_ratings.txt")

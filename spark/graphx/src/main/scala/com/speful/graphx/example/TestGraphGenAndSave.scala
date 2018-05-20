@@ -3,12 +3,11 @@ package com.speful.graphx.example
 import java.io.File
 
 import com.speful.graphx.utils.SimpleGraphX
-import com.speful.spark.utils.SimpleSpark
+import com.speful.spark.utils.SimpleCore
 import org.apache.spark.graphx.util.{GraphGenerators => GraphGen}
 
-object TestGraphGenAndSave extends App{
+object TestGraphGenAndSave extends App with SimpleGraphX{
 
-  val sc = SimpleSpark.context()
 
   val path = args(0)
 
@@ -26,7 +25,7 @@ object TestGraphGenAndSave extends App{
     "logNormalGraph" -> GraphGen.logNormalGraph(sc , 15)
 
   ).foreach{ case(name , graph)=>
-      SimpleGraphX.saveGraphTo(
+      saveGraphTo(
         s"$path/$name.gexf",
         graph
       )

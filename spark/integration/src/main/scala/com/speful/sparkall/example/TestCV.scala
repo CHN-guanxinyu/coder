@@ -6,6 +6,7 @@ import java.io.File
 
 import com.speful.graphx.utils.SimpleGraphX
 import com.speful.spark.utils.SimpleSpark
+import com.speful.sql.utils.SimpleSpark
 import javax.imageio.ImageIO
 import org.apache.spark.graphx.{Edge, Graph}
 import org.apache.spark.mllib.clustering.PowerIterationClustering
@@ -15,8 +16,7 @@ import org.apache.spark.mllib.clustering.PowerIterationClustering.Assignment
   * 无法单机运行
   * TODO : 原图片1024*683，笛卡尔积生成庞大数量的Edge对象，导致内存剧增，需解决
   */
-object TestCV extends App {
-  lazy val sc = SimpleSpark.context()
+object TestCV extends App  with SimpleSpark{
 
 
 

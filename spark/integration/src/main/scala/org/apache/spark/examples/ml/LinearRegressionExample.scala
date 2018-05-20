@@ -18,11 +18,11 @@
 // scalastyle:off println
 package org.apache.spark.examples.ml
 
-import com.speful.sql.utils.SimpleSQL
-import scopt.OptionParser
+import com.speful.sql.utils.SimpleSpark
 import org.apache.spark.examples.mllib.AbstractParams
 import org.apache.spark.ml.regression.LinearRegression
-import org.apache.spark.sql.{DataFrame, SparkSession}
+import org.apache.spark.sql.DataFrame
+import scopt.OptionParser
 
 /**
  * An example runner for linear regression with elastic-net (mixing L1/L2) regularization.
@@ -38,7 +38,7 @@ import org.apache.spark.sql.{DataFrame, SparkSession}
  * }}}
  * If you use it as a template to create your own app, please use `spark-submit` to submit your app.
  */
-object LinearRegressionExample {
+object LinearRegressionExample extends SimpleSpark {
 
   case class Params(
       input: String = null,
@@ -101,9 +101,6 @@ object LinearRegressionExample {
   }
 
   def run(params: Params): Unit = {
-    val spark = SimpleSQL.context(
-      s"LinearRegressionExample with $params"
-    )
 
     println(s"LinearRegressionExample with parameters:\n$params")
 
