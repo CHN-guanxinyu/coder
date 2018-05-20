@@ -18,8 +18,8 @@
 // scalastyle:off println
 package org.apache.spark.examples.ml
 
+import com.speful.sql.utils.SimpleSQL
 import scopt.OptionParser
-
 import org.apache.spark.examples.mllib.AbstractParams
 import org.apache.spark.ml.regression.LinearRegression
 import org.apache.spark.sql.{DataFrame, SparkSession}
@@ -101,10 +101,10 @@ object LinearRegressionExample {
   }
 
   def run(params: Params): Unit = {
-    val spark = SparkSession
-      .builder
-      .appName(s"LinearRegressionExample with $params")
-      .getOrCreate()
+    val spark = SimpleSQL.context(
+      "local[*]",
+      s"LinearRegressionExample with $params"
+    )
 
     println(s"LinearRegressionExample with parameters:\n$params")
 
