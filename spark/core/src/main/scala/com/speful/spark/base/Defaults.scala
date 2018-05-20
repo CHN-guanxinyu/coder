@@ -1,7 +1,5 @@
 package com.speful.spark.base
 
-import org.apache.log4j.Logger
-
 /**
   * 定义基本的默认参数、默认配置等信息
   */
@@ -9,7 +7,6 @@ object Defaults {
 
   //spark config
   val appName = "default app"
-  val schedulerMode = "FAIR"
   val serializer = classOf[org.apache.spark.serializer.KryoSerializer].getName
 
 
@@ -18,17 +15,13 @@ object Defaults {
     val taskMaxFailures = 50
     val akkaTimeout = 300
     val networkTimeout = 300
-    //如果是windows测试环境下,需要指定此目录
-//    val hadoopHome = "D:/hadoop-2.5.2"
   }
 
 }
 
 
 trait CoreEnv {
-  val WORKING_HOME = "E:/test/spark"
 
-  val logger = Logger getLogger "org"
   //system env
   import Defaults.systemProperties._
 

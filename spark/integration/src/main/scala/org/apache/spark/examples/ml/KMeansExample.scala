@@ -37,7 +37,6 @@ object KMeansExample {
 
   def main(args: Array[String]): Unit = {
     val spark = SimpleSQL.context(
-      args(0),
       s"${this.getClass.getSimpleName}"
     )
 

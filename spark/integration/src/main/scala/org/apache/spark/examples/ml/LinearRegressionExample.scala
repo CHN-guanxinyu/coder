@@ -102,7 +102,6 @@ object LinearRegressionExample {
 
   def run(params: Params): Unit = {
     val spark = SimpleSQL.context(
-      "local[*]",
       s"LinearRegressionExample with $params"
     )
 

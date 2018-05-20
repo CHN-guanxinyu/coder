@@ -6,7 +6,6 @@ import it.nerdammer.spark.hbase._
 object HbaseReader extends App {
 
   val spark = SimpleSQL.context(
-    args(0) ,
     "Hbase Reader" ,
     Map("spark.hbase.host" -> "master")
   )
@@ -25,7 +24,6 @@ object HbaseReader extends App {
 
 object HbaseWriter extends App{
   val spark = SimpleSQL.context(
-    args(0),
     "Hbase Writer",
     Map("spark.hbase.host" -> "master")
   )

@@ -10,7 +10,7 @@ object TestGraphGenAndSave extends App{
 
   val sc = SimpleSpark.context()
 
-  val path = SimpleGraphX.HOME
+  val path = args(0)
 
   val f = new File(path)
   if( ! f.exists ) f.mkdirs

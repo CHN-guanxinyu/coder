@@ -6,7 +6,6 @@ import com.speful.graphx.base.GraphXEnv
 import org.apache.spark.graphx.{Edge, Graph}
 
 object SimpleGraphX extends GraphXEnv{
-  val HOME = WORKING_HOME + "/graphx"
 
   /**
     * 将`graph`对象存储到`path`

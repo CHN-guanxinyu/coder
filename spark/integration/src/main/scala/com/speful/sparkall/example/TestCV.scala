@@ -20,7 +20,7 @@ object TestCV extends App {
 
 
 
-  val path = SimpleGraphX.HOME
+  val path = args(0)
 
   val file = new File(s"$path/rabbit.jpg")
 

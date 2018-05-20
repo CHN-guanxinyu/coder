@@ -8,29 +8,33 @@ import org.apache.spark.{SparkConf => Sconf, SparkContext => Sc}
 object SimpleSpark extends CoreEnv {
 
   def context(
-              master : String = "",
               appName: String = appName,
               opts: Map[String, String] = Map.empty
-             ) = Sc.getOrCreate( conf( appName, opts , master ) )
+             ) = Sc.getOrCreate( conf( appName, opts ) )
 
 
   def conf(
            appName: String,
-           opts: Map[String, String],
-           master : String
+           opts: Map[String, String]
          )={
+
     val cfg = new Sconf().
       setAppName(appName).
-      set("spark.scheduler.mode", schedulerMode).
       set("spark.serializer", serializer).
       setAll(opts)
 
-    if("" equals master) cfg else{
-      cfg setMaster master
-      cfg
-    }
+    //Win环境下默认local[*]
+    if( isWindows ) cfg setMaster "local[*]"
+
+    cfg
+
   }
 
+  def isWindows =
+    System.getProperties.
+      getProperty("os.name").
+      toUpperCase.
+      indexOf("WINDOWS") != -1
 
 
 
