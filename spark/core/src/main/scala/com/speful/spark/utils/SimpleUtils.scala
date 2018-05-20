@@ -23,7 +23,6 @@ object SimpleSpark extends CoreEnv {
       setAppName(appName).
       set("spark.scheduler.mode", schedulerMode).
       set("spark.serializer", serializer).
-      set("spark.scheduler.allocation.file", "spark/conf/fairscheduler.xml").
       setAll(opts)
 
     if("" equals master) cfg else{
