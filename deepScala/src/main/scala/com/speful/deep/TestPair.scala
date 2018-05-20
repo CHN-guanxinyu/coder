@@ -19,16 +19,26 @@ object TestPair extends App{
 
   val t = test(data)
 
+  println(
+    t.scanFoo.take(5) + "\n",
+    t.slidingFoo.take(5) + "\n" ,
+    t.listApiFoo.take(5) + "\n",
+    t.foldFoo.take(5)
+  )
+
+  (1 to maxIterations).foreach{ i =>
+    t.scanFoo
+    Timer howLong format(s"scanFoo_$i")
+  }
+
+
   (1 to maxIterations).foreach{ i =>
     t.slidingFoo
     Timer howLong format(s"slidingFoo_$i")
   }
 
 
-  (1 to maxIterations).foreach{ i =>
-    t.scanFoo
-    Timer howLong format(s"scanFoo_$i")
-  }
+
 
 
 
@@ -74,6 +84,10 @@ case class test[T](data : List[T]){
     data |\|
   }
 
+  /**
+    * best way
+    * @return
+    */
   def listApiFoo ={
     implicit class Slider3[T]( li : List[ T ] ){
       def |\| = null.asInstanceOf[T] :: li zip li tail
