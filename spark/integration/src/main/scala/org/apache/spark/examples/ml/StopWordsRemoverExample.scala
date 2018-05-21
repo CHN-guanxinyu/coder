@@ -19,16 +19,12 @@
 package org.apache.spark.examples.ml
 
 // $example on$
+import com.speful.sql.utils.SimpleSpark
 import org.apache.spark.ml.feature.StopWordsRemover
 // $example off$
-import org.apache.spark.sql.SparkSession
 
-object StopWordsRemoverExample {
+object StopWordsRemoverExample extends SimpleSpark{
   def main(args: Array[String]): Unit = {
-    val spark = SparkSession
-      .builder
-      .appName("StopWordsRemoverExample")
-      .getOrCreate()
 
     // $example on$
     val remover = new StopWordsRemover()

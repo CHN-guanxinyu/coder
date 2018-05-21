@@ -19,16 +19,12 @@
 package org.apache.spark.examples.ml
 
 // $example on$
+import com.speful.sql.utils.SimpleSpark
 import org.apache.spark.ml.feature.StringIndexer
 // $example off$
-import org.apache.spark.sql.SparkSession
 
-object StringIndexerExample {
+object StringIndexerExample extends SimpleSpark{
   def main(args: Array[String]): Unit = {
-    val spark = SparkSession
-      .builder
-      .appName("StringIndexerExample")
-      .getOrCreate()
 
     // $example on$
     val df = spark.createDataFrame(

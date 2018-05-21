@@ -2,8 +2,8 @@ package com.speful.mllib.tasks
 
 import com.speful.sql.utils.SimpleSpark
 
+object PersonData extends SimpleSpark{
 
-object PersonData extends App with SimpleSpark{
 
   val url =
     "jdbc:mysql://172.16.0.36:3306/" +
@@ -15,5 +15,13 @@ object PersonData extends App with SimpleSpark{
   val user = "root"
   val passwd = "root01"
 
-  jdbc(url , table , user , passwd).show
+  def data() = jdbc( url , table , user , passwd ).checkpoint
+
+
+
+  def main(args: Array[String]): Unit = {
+    data show
+  }
+
+
 }

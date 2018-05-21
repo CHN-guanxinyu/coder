@@ -19,22 +19,17 @@
 package org.apache.spark.examples.ml
 
 // $example on$
-import org.apache.spark.ml.{Pipeline, PipelineModel}
+import com.speful.sql.utils.SimpleSpark
 import org.apache.spark.ml.classification.LogisticRegression
 import org.apache.spark.ml.feature.{HashingTF, Tokenizer}
 import org.apache.spark.ml.linalg.Vector
+import org.apache.spark.ml.{Pipeline, PipelineModel}
 import org.apache.spark.sql.Row
 // $example off$
-import org.apache.spark.sql.SparkSession
 
-object PipelineExample {
+object PipelineExample extends SimpleSpark{
 
   def main(args: Array[String]): Unit = {
-    val spark = SparkSession
-      .builder
-      .appName("PipelineExample")
-      .getOrCreate()
-
     // $example on$
     // Prepare training documents from a list of (id, text, label) tuples.
     val training = spark.createDataFrame(Seq(

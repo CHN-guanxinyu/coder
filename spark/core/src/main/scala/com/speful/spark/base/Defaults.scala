@@ -32,7 +32,7 @@ trait CoreEnv {
 
   def sparkConfOpts : Map[String , String] = Map.empty
 
-  val logger = LogManager getLogger LogManager.ROOT_LOGGER_NAME
+  final val logger = LogManager getLogger LogManager.ROOT_LOGGER_NAME
 
   //system env
   import Defaults._
@@ -41,9 +41,9 @@ trait CoreEnv {
   System.setProperty("spark.task.maxFailures", taskMaxFailures)
   System.setProperty("spark.network.timeout", networkTimeout)
 
-  implicit def _2str: Any => String = _ toString
+  final implicit def _2str: Any => String = _ toString
 
-  def sparkConf={
+  final def sparkConf={
 
     val cfg = new Sconf().
       setAppName(appName).
@@ -56,7 +56,7 @@ trait CoreEnv {
     cfg
   }
 
-  def isWindows =
+  final def isWindows =
     System.getProperties.
       getProperty("os.name").
       toUpperCase.

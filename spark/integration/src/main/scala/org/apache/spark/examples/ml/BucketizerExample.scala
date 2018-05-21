@@ -19,9 +19,9 @@
 package org.apache.spark.examples.ml
 
 // $example on$
+import com.speful.sql.utils.SimpleSpark
 import org.apache.spark.ml.feature.Bucketizer
 // $example off$
-import org.apache.spark.sql.SparkSession
 /**
  * An example for Bucketizer.
  * Run with
@@ -29,12 +29,8 @@ import org.apache.spark.sql.SparkSession
  * bin/run-example ml.BucketizerExample
  * }}}
  */
-object BucketizerExample {
+object BucketizerExample extends SimpleSpark{
   def main(args: Array[String]): Unit = {
-    val spark = SparkSession
-      .builder
-      .appName("BucketizerExample")
-      .getOrCreate()
 
     // $example on$
     val splits = Array(Double.NegativeInfinity, -0.5, 0.0, 0.5, Double.PositiveInfinity)

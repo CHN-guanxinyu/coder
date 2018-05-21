@@ -19,17 +19,13 @@
 package org.apache.spark.examples.ml
 
 // $example on$
+import com.speful.sql.utils.SimpleSpark
 import org.apache.spark.ml.feature.PCA
 import org.apache.spark.ml.linalg.Vectors
 // $example off$
-import org.apache.spark.sql.SparkSession
 
-object PCAExample {
+object PCAExample extends SimpleSpark{
   def main(args: Array[String]): Unit = {
-    val spark = SparkSession
-      .builder
-      .appName("PCAExample")
-      .getOrCreate()
 
     // $example on$
     val data = Array(

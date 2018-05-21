@@ -7,21 +7,21 @@ import com.speful.sql.base.SparkEnv
 import org.apache.spark.sql.{DataFrame, SparkSession => Sss}
 
 
-trait SimpleSpark extends SparkEnv with SimpleCore{
+trait SimpleSpark extends SparkEnv with SimpleCore {
 
-  lazy val spark = Sss.builder config sparkConf getOrCreate
+  final lazy val spark = Sss.builder config sparkConf getOrCreate
 
-    def jdbc(
-              url : String,
-              table : String,
-              user : String,
-              passwd : String
-            ): DataFrame = {
+  final def jdbc(
+            url: String,
+            table: String,
+            user: String,
+            passwd: String
+          ): DataFrame = {
 
-      val prop = new Properties() >>
-      (_ setProperty("user" , user)) >>
-      (_ setProperty("password" , passwd))
+    val prop = new Properties() >>
+      (_ setProperty("user", user)) >>
+      (_ setProperty("password", passwd))
 
-    spark.read jdbc( url, table, prop )
+    spark.read jdbc(url, table, prop)
   }
 }
