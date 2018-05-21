@@ -1,5 +1,7 @@
 package com.speful.deepscala.tests
 
+import com.speful.deep.implicits.WannaBeExtends
+
 /**
   * 测试隐式转换的一种方式
   *

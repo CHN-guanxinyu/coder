@@ -8,4 +8,9 @@ trait SimpleCore extends CoreEnv {
 
   lazy val sc = Sc getOrCreate sparkConf
 
+  implicit class And[T](obj : T){
+    def >>(f : T => Unit) = {
+      f(obj);obj
+    }
+  }
 }

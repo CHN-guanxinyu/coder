@@ -4,7 +4,6 @@ import com.speful.sql.utils.SimpleSpark
 
 
 object PersonData extends App with SimpleSpark{
-  override val appName: String = "Person data hello"
 
   val url =
     "jdbc:mysql://172.16.0.36:3306/" +
@@ -16,8 +15,5 @@ object PersonData extends App with SimpleSpark{
   val user = "root"
   val passwd = "root01"
 
-  println( spark.sparkContext.appName )
-
-
-
+  jdbc(url , table , user , passwd).show
 }
