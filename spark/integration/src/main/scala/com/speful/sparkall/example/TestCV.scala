@@ -4,8 +4,6 @@ import java.awt.image.{BufferedImage, DataBufferInt}
 import java.awt.{Color, Image}
 import java.io.File
 
-import com.speful.graphx.utils.SimpleGraphX
-import com.speful.spark.utils.SimpleSpark
 import com.speful.sql.utils.SimpleSpark
 import javax.imageio.ImageIO
 import org.apache.spark.graphx.{Edge, Graph}

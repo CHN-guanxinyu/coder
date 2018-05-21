@@ -11,14 +11,14 @@ trait SimpleSpark extends SparkEnv with SimpleCore{
 
   lazy val spark = Sss.builder config sparkConf getOrCreate
 
-  def jdbc(
-          url : String,
-          table : String,
-          user : String,
-          passwd : String
-          ): DataFrame = {
+    def jdbc(
+              url : String,
+              table : String,
+              user : String,
+              passwd : String
+            ): DataFrame = {
 
-    val prop = new Properties() >>
+      val prop = new Properties() >>
       (_ setProperty("user" , user)) >>
       (_ setProperty("password" , passwd))
 

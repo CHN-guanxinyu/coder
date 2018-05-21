@@ -5,6 +5,8 @@ import it.nerdammer.spark.hbase._
 
 object HbaseReader extends App with SimpleSpark {
 
+  override def sparkConfOpts: Map[String, String] = super.sparkConfOpts ++ Map( "spark.hbase.host" -> "master")
+
   val hbaseRDD = sc.
     hbaseTable[(Int ,Int, String)]("mytable").
     select("column1", "column2" ).
