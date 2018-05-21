@@ -65,6 +65,12 @@ case class AStar[T](geo: Array[Array[T]], wall: T, path: T, step: Int = 10) {
          |from  : ${(start x, start y)}
          |to  : ${(target x, target y)}
          |shortest lenth : ${if (len == 0) "No path" else len}
+         | |
+         |—|————————> X
+         | |
+         | |
+         | V
+         |Y
       """.stripMargin)
 
     geo.transpose map (_ mkString "  ") map println
