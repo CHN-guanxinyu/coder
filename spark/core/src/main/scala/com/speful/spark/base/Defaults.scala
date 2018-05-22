@@ -15,8 +15,8 @@ object Defaults {
   //system properties
   object systemProperties {
     val taskMaxFailures = 50
-    val akkaTimeout = 300
-    val networkTimeout = 300
+    val akkaTimeout = 99999
+    val networkTimeout = 99999
   }
 
 }
