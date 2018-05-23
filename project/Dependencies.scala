@@ -21,7 +21,7 @@ object Version{
   val scalaCheck = "1.13.0"
 
   //spark
-  val spark = "2.3.0"
+  val spark = "2.2.0"
 
   //hadoop
   val hadoop = "2.5.2"

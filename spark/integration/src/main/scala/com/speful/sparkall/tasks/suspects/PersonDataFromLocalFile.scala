@@ -2,31 +2,35 @@ package com.speful.sparkall.tasks.suspects
 
 import com.speful.sparkall.tasks.suspects.utils._
 import com.speful.sql.utils.SimpleSpark
-import org.apache.spark.sql.Row
+import org.apache.spark.sql.{DataFrame, Row}
 import org.apache.spark.sql.catalyst.encoders.RowEncoder
-import org.apache.spark.sql.types.{StringType, StructField, StructType}
-
+import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
+import it.nerdammer.spark.hbase._
+import org.apache.spark.rdd.RDD
 
 object PersonDataFromLocalFile extends SimpleSpark {
+  override def sparkConfOpts: Map[String, String] = Map("spark.hbase.host" -> "master")
   import spark.implicits._
   def main(args: Array[String]): Unit = {
-
-
-
-    val baseInfo = Map(
-      "NAME"                ->      "对象姓名",
-      "CERTIFICATE_CODE"    ->      "对象证件号码",
-      "MSISDN"              ->      "本机号码"
-    )
-    val flag = "CASE_NAME" -> "案件名称"
-
-    personBaseDF show 1000
   }
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
   lazy val raw = spark.gzipDF("E:\\test\\car.tar.gz").cache
+//  lazy val raw = spark.gzipDF("hdfs://master:9000/datas/gat/").cache
 
   implicit val encoder = RowEncoder(StructType(
     StructField("folder_", StringType) ::
@@ -35,30 +39,29 @@ object PersonDataFromLocalFile extends SimpleSpark {
   ))
 
   //索引数据,所有文件下xml文件
-  lazy val indices = raw.where("file_name_ like '%xml'").flatMap { case Row(file, content) =>
-    val t = file split "/"
-    val folder = t(t.length - 2)
+  lazy val indices = raw.where("file_name_ like '%xml'").flatMap { case Row(file : String, content : String) =>
+    val folder = file.substring(0 , file.lastIndexOf("/") )
     IndicesParser parse content map { case (bcpName, fields) =>
-      Row(folder, bcpName, fields mkString "\n")
+      Row(folder, bcpName.split("_").last, fields mkString "\n")
     }
   }.cache
 
   //真实数据,bcp文件
-  lazy val bcps = raw.where("file_name_ like '%bcp'").map { case Row(file, content) =>
-    val bcpName :: folder :: _ = file.split("/").reverse.toList
-    Row(folder, bcpName, content)
+  lazy val bcps = raw.where("file_name_ like '%bcp'").flatMap { case Row(file : String, content : String ) =>
+    val lasti = file.lastIndexOf("/")
+    content split "\n" map{ line => Row(file.substring(0 , lasti), file.split("_").last, line) }
   }.cache
 
   spark.udf.register("len",(x:String)=>x.length)
 
   //folder engKey chnKey value
   lazy val parsedData = indices.join(bcps, Seq("folder_", "file_name_")).
-    flatMap { case Row(folder, _, fields, content) =>
+    flatMap { case Row(folder : String, fileName : String , fields : String , line : String) =>
       fields.split("\n").
-        zip(content split "\t").
+        zip(line split "\t").
         map { case (field, value) =>
-          val Array(eng, chn) = field split "\t"
-          Row(folder.split("-")(0), eng, chn, value)
+          val Array(eng : String , chn : String ) = field split "\t"
+          Row(folder , fileName + "_" + eng, chn, value )
         }
     }(
       RowEncoder(StructType(
@@ -67,7 +70,7 @@ object PersonDataFromLocalFile extends SimpleSpark {
           StructField("k_chn_", StringType) ::
           StructField("value_", StringType) :: Nil
       ))
-    ).where("len(value_) > 0 and value_ != '\n'").cache
+    ).cache
 
 
   //person base information
@@ -84,7 +87,7 @@ object PersonDataFromLocalFile extends SimpleSpark {
 
       ( (d("NAME") , d("CERTIFICATE_CODE")) , d("MSISDN" ) )
     }).
-    reduceByKey( (a , b) => a + "," + b ).
+//    reduceByKey( (a , b) => a + "," + b ).
     mapPartitions(
       _ map{ case (( name , cc ) , msisdn)=> ( name , cc , msisdn)}
     ).toDF("name_" , "certificate_code_" , "msisdn_" ).

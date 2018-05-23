@@ -8,11 +8,11 @@ object HbaseReader extends App with SimpleSpark {
   override def sparkConfOpts: Map[String, String] = super.sparkConfOpts ++ Map( "spark.hbase.host" -> "master")
 
   val hbaseRDD = sc.
-    hbaseTable[(Int ,Int, String)]("mytable").
-    select("column1", "column2" ).
-    inColumnFamily("mycf")
+    hbaseTable[(Option[Long] , Option[String], Option[String])]("suspects_base_bcps").
+    select("folder_file","values_").
+    inColumnFamily("info")
 
-  hbaseRDD.collect foreach println
+  (hbaseRDD.take(1).foreach(println))
 
 
 }

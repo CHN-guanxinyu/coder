@@ -48,6 +48,8 @@ trait CoreEnv {
     val cfg = new Sconf().
       setAppName(appName).
       set("spark.serializer", serializer).
+      set("spark.scheduler.mode" , "FAIR").
+      set("spark.memory.fraction" , 0.9).
       setAll(sparkConfOpts)
 
     //Win环境下默认local[*]
