@@ -21,7 +21,7 @@ object Version{
   val scalaCheck = "1.13.0"
 
   //spark
-  val spark = "2.2.0"
+  val spark = "2.3.0"
 
   //hadoop
   val hadoop = "2.5.2"
@@ -119,10 +119,9 @@ object Lib{
     ExclusionRule(organization="org.slf4j")
   )
 
-  val kafka = "org.apache.kafka" % "kafka_2.11" % Version.kafka excludeAll(
-    ExclusionRule("com.fasterxml.jackson.core")
-  )
+  val kafka = "org.apache.kafka" % "kafka_2.11" % Version.kafka excludeAll ExclusionRule("com.fasterxml.jackson.core")
 
+//  val scalajs_dom =
 
 
 }

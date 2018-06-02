@@ -79,8 +79,6 @@ lazy val spark_integration =
 
   )
 
-
-
 /**
   * scala learning
   */

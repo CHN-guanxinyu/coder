@@ -68,6 +68,7 @@ object TestCV extends App  with SimpleSpark{
   g.checkpoint
   val m = new PowerIterationClustering() run g
 
+
   val white$black = Array(Color.white getRGB, Color.black getRGB)
 
   val newBi = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB)

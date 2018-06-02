@@ -15,6 +15,7 @@ object HbaseReader extends App with SimpleSpark {
   (hbaseRDD.take(1).foreach(println))
 
 
+  scala.xml.XML
 }
 
 object HbaseWriter extends App with SimpleSpark{
