@@ -39,4 +39,5 @@ object GZipReader extends SimpleSpark{
   def decode( bytes: Array[Byte] , charset: Charset = StandardCharsets.UTF_8) =
     new String(bytes, StandardCharsets.UTF_8)
 
+  override def sparkConfOpts: Map[String, String] = Map.empty
 }

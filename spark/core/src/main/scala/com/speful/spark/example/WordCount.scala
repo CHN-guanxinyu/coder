@@ -5,6 +5,10 @@ import com.speful.spark.utils.SimpleCore
 
 object WordCount extends App with SimpleCore{
 
+  override def sparkConfOpts: Map[String, String] = Map(
+    "spark.master" -> "local"
+  )
+
   val data = "hello world world hello hello spark hello scala"
 
   sc.

@@ -31,6 +31,5 @@ object TestGraphGenAndSave extends App with SimpleGraphX{
       )
   }
 
-
-
+  override def sparkConfOpts = Map("spark.master" -> "local")
 }

@@ -83,5 +83,5 @@ object TestCV extends App  with SimpleSpark{
 
   ImageIO.write(newBi, "PNG", new File(s"$path/CVres.png"))
 
-
+  override def sparkConfOpts = Map.empty
 }

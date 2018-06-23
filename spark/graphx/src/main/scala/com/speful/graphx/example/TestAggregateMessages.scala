@@ -33,4 +33,8 @@ object TestAggregateMessages extends App with SimpleGraphX{
     .map(_._2.swap)
     .collect
     .foreach(println)
+
+  override def sparkConfOpts = Map(
+    "spark.master" -> "local"
+  )
 }

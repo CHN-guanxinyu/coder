@@ -1,3 +1,4 @@
+/*
 package com.speful.sparkall.example
 
 import com.speful.sql.utils.SimpleSpark
@@ -28,3 +29,4 @@ object HbaseWriter extends App with SimpleSpark{
     inColumnFamily("mycf").
     save()
 }
+*/

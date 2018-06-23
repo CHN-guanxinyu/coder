@@ -30,7 +30,7 @@ trait CoreEnv {
     */
   def appName : String = this.getClass.getSimpleName.filter(!_.equals('$'))
 
-  def sparkConfOpts : Map[String , String] = Map.empty
+  def sparkConfOpts : Map[String , String]
 
   final val logger = LogManager getLogger LogManager.ROOT_LOGGER_NAME
 

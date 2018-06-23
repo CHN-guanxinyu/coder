@@ -7,7 +7,8 @@ object Dependencies {
     Lib.scalaCheck,
     Lib.slf4j_impl,
     Lib.log4j_api,
-    Lib.scalaTest
+    Lib.scalaTest,
+    Lib.commons_codec
   )
 }
 
@@ -15,6 +16,8 @@ object Dependencies {
 
 
 object Version{
+  val commons_codec = "1.10"
+
   //scala
   val scala = "2.11.7"
   val scalaTest = "2.2.4"
@@ -54,7 +57,9 @@ object Version{
 
 object Lib{
 
-  val lombok          = "org.projectlombok"           %"lombok"                       % Version.lombok
+  val commons_codec   = "commons-codec"               % "commons-codec"               % Version.commons_codec
+
+  val lombok          = "org.projectlombok"           % "lombok"                      % Version.lombok
   val scalaCheck      = "org.scalacheck"              %%"scalacheck"                  % Version.scalaCheck
   val scalaTest       = "org.scalatest"               % "scalatest_2.11"              % Version.scalaTest     % "test"
 
@@ -73,7 +78,9 @@ object Lib{
   object spark{
     private def foo( md : String ) = "org.apache.spark" %% s"spark-$md" % Version.spark
 
-    val core            = foo("core")
+    val core            = foo("core") excludeAll(
+      ExclusionRule(organization="commons-codec")
+    )
     val sql             = foo("sql")
     val mllib           = foo("mllib")
     val graphx          = foo("graphx")

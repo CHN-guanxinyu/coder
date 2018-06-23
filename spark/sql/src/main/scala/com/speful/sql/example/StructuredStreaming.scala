@@ -5,6 +5,8 @@ import org.apache.spark.sql.streaming.OutputMode
 
 
 object StructuredStreaming extends App with SimpleSpark{
+  override def sparkConfOpts: Map[String, String] = super.sparkConfOpts
+
 
   import spark.implicits._
   val lines = spark.readStream.

@@ -37,4 +37,6 @@ object TestPregel extends App with SimpleGraphX{
   )
 
   g.vertices.collect.foreach(println)
+
+  override def sparkConfOpts = Map("spark.master" -> "local")
 }
