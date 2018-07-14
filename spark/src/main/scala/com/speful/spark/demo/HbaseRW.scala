@@ -2,6 +2,7 @@ package com.speful.spark.demo
 
 import com.speful.spark.utils.SimpleSpark
 import it.nerdammer.spark.hbase._
+import com.speful.spark.utils._
 
 object HbaseReader extends App with SimpleSpark {
 
