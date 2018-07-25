@@ -1,10 +1,8 @@
 import scala.sys.process.Process
-
 val gitHeadCommitSha = taskKey[String]("determine the current git commit SHA")
 val makeVersionProperties = taskKey[Seq[File]]("make a version.properties file.")
 
 inThisBuild( gitHeadCommitSha := Process("git rev-parse HEAD").lineStream.head )
-
 lazy val root = preownedKittenProject("root" , ".").
   settings(
     makeVersionProperties := {

@@ -1,4 +1,4 @@
-package com.speful.spark.demo
+package com.speful.demo
 
 import com.speful.spark.utils.SimpleSpark
 import it.nerdammer.spark.hbase._

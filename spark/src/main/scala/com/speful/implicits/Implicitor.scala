@@ -1,4 +1,4 @@
-package com.speful.spark.utils
+package com.speful.implicits
 
 import java.nio.charset.{Charset, StandardCharsets}
 
@@ -7,18 +7,24 @@ import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream
 import org.apache.spark.input.PortableDataStream
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
-import scala.language.implicitConversions
 import scala.util.Try
 
-class GZipSparkContext(@transient spark : SparkSession) extends Serializable {
+case class StringImplicitor(@transient str : String) {
+  lazy val spark = SparkSession.builder.getOrCreate
 
+  def as[T] = Class.forName( str ).getConstructor().newInstance().asInstanceOf[T]
+
+  def go: DataFrame = spark sql str
+}
+
+case class SparkSessionImplicitor(@transient spark : SparkSession){
   def gzipDF(path : String , partitions : Int = 10): DataFrame ={
     import spark.implicits._
     spark.sparkContext.
       binaryFiles( path , partitions ).
       map(_._2).
       flatMap( extractFiles(_).toOption ).
-      flatMap( _.map{ case(file , content) => (file , decode(content) ) } ).
+      flatMap( _.map{ case(file , content) => ( file , decode(content) ) } ).
       toDF("file_name_" , "content_")
   }
 
@@ -45,10 +51,8 @@ class GZipSparkContext(@transient spark : SparkSession) extends Serializable {
 
   private def decode( bytes: Array[Byte] , charset: Charset = StandardCharsets.UTF_8) =
     new String(bytes, StandardCharsets.UTF_8)
-
 }
-
-trait GZipSparkContextConversions extends Serializable {
-  // Include new methods into the SparkContext object
-  implicit def toGZipSparkContext(spark: SparkSession): GZipSparkContext = new GZipSparkContext(spark)
+trait Implicitor {
+  implicit def to(sql: String): StringImplicitor = StringImplicitor(sql)
+  implicit def to(spark : SparkSession) : SparkSessionImplicitor = SparkSessionImplicitor(spark)
 }

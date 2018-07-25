@@ -1,10 +1,9 @@
-package com.speful.spark.demo
+package com.speful.demo
 
 import com.speful.spark.utils.SimpleSpark
-import org.apache.spark.graphx.{Edge, Graph}
+import org.apache.spark.graphx.{Edge, EdgeDirection, Graph, Pregel}
 
-object AggregateMessages extends App with SimpleSpark{
-
+object TestPregel extends App with SimpleSpark{
   val vertices = sc.makeRDD(
     Array(
       (1 , "Ann"),
@@ -28,10 +27,15 @@ object AggregateMessages extends App with SimpleSpark{
 
   val graph = Graph( vertices , edges )
 
-  graph.aggregateMessages[Int]( _ sendToSrc 1 , _ + _ )
-    .rightOuterJoin(graph.vertices)
-    .map(_._2.swap)
-    .collect
-    .foreach(println)
+  val g = Pregel(
+    graph.mapVertices((v , d) => 0), 0 ,
+    activeDirection = EdgeDirection.Out
+  )(
+    (id , vd , a) => math.max( vd , a ),
+    et => Iterator(( et.dstId , et.srcAttr + 1 )),
+    (a , b) => math.max(a , b)
+  )
+
+  g.vertices.collect.foreach(println)
 
 }

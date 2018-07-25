@@ -9,15 +9,24 @@ import org.apache.spark.streaming.{Seconds, StreamingContext => Ssc}
 import org.apache.spark.{SparkConf => Sconf, SparkContext => Sc}
 
 private trait SimpleSparkCore
+
 private trait SimpleSparkSql
+
 private trait SimpleSparkGraphX
+
 private trait SimpleSparkStreaming
 
 trait SimpleSpark extends BaseEnv {
 
   final lazy val sc = Sc getOrCreate sparkConf
 
-  final lazy val spark = Sss.builder.enableHiveSupport config sparkConf getOrCreate
+  final lazy val spark = {
+    val t = Sss.builder
+
+    val builder = if (isWindows) t else t.enableHiveSupport
+
+    builder config sparkConf getOrCreate
+  }
 
   lazy val ssc: Ssc = Ssc.getActiveOrCreate(() =>
     new Ssc(sparkConf, Seconds(second))

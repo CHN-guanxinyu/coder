@@ -1,4 +1,4 @@
-package com.speful.spark.demo
+package com.speful.demo
 
 import java.text.SimpleDateFormat
 import java.util.Date
