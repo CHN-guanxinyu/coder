@@ -1,4 +1,5 @@
 import scala.sys.process.Process
+
 val gitHeadCommitSha = taskKey[String]("determine the current git commit SHA")
 val makeVersionProperties = taskKey[Seq[File]]("make a version.properties file.")
 
@@ -36,8 +37,8 @@ lazy val spark =
       Lib.hbase.common,
       Lib.hbase.client,
       Lib.hbase.server,
-      Lib.hbase.spark_connector
-
+      Lib.hbase.spark_connector,
+      Lib.scalaTest
 //    ,Lib.kafka,
 //    Lib.jackson.core,
 //    Lib.jackson.databind,
@@ -64,8 +65,10 @@ lazy val deepScala =
 def preownedKittenProject(name : String , path : String ) : Project ={
   Project( name , file(path) ).
     settings(
-      version := "0.1.0",
+      version := "0.1-SNAPSHOT",
       organization := "com.speful",
-      scalaVersion := Version.scala
-    )
+      scalaVersion := Version.scala,
+      test in assembly := {}
+    ).
+    enablePlugins(AssemblyPlugin)
 }

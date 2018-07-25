@@ -7,7 +7,6 @@ object Dependencies {
     Lib.scalaCheck,
     Lib.slf4j_impl,
     Lib.log4j_api,
-    Lib.scalaTest,
     Lib.scalactic,
     Lib.commons_codec
   )
@@ -80,11 +79,9 @@ object Lib{
 
 
   object spark{
-    private def foo( md : String ) = "org.apache.spark" %% s"spark-$md" % Version.spark
+    private def foo( md : String ) = "org.apache.spark" %% s"spark-$md" % Version.spark % "provided"
 
-    val core            = foo("core") excludeAll(
-      ExclusionRule(organization="commons-codec")
-    )
+    val core            = foo("core") excludeAll ExclusionRule(organization="commons-codec")
     val sql             = foo("sql")
     val mllib           = foo("mllib")
     val graphx          = foo("graphx")
@@ -95,7 +92,7 @@ object Lib{
   }
 
   object hbase{
-    private def foo( md : String )="org.apache.hbase"   %s"hbase-$md"  % Version.hbase excludeAll(
+    private def foo( md : String )="org.apache.hbase"   %s"hbase-$md"  % Version.hbase % "provided" excludeAll(
       ExclusionRule(
         organization = "javax.servlet",
         name="javax.servlet-api"
