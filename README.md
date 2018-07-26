@@ -7,7 +7,8 @@ com/speful<br>
 |_implicits ```一些常用的隐式转换``` <br>
 |_spark.utils ```spark工具包```
 ### 栗子
-```
+
+```scala
 import com.speful.implicits._
 import com.speful.spark.utils._
 
