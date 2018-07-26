@@ -1,3 +1,10 @@
+/**
+  * 这里封装了一些自定义的隐式转换
+  * 可以方便的进行链式函数调用
+  * 相比于`fun`(obj)的代码风格我更喜欢`str`.`fun`
+  *
+  */
+
 package com.speful.implicits
 
 import java.nio.charset.{Charset, StandardCharsets}
@@ -9,15 +16,39 @@ import org.apache.spark.sql.{DataFrame, SparkSession}
 
 import scala.util.Try
 
+
 case class StringImplicitor(@transient str : String) {
   lazy val spark = SparkSession.builder.getOrCreate
 
+  /**
+    * Usage:
+    * "package.to.classA".as[classA].foo.bar
+    *
+    * @tparam T
+    * @return
+    */
   def as[T] = Class.forName( str ).getConstructor().newInstance().asInstanceOf[T]
 
+  /**
+    * Usage:
+    * "select something".go where "cond1" show false
+    * @return
+    */
   def go: DataFrame = spark sql str
 }
 
+
 case class SparkSessionImplicitor(@transient spark : SparkSession){
+
+  /**
+    * load gzip files in given path of default fs
+    *
+    * Usage:
+    * spark gzipDF "path/to/file"
+    * @param path
+    * @param partitions
+    * @return
+    */
   def gzipDF(path : String , partitions : Int = 10): DataFrame ={
     import spark.implicits._
     spark.sparkContext.
@@ -52,6 +83,8 @@ case class SparkSessionImplicitor(@transient spark : SparkSession){
   private def decode( bytes: Array[Byte] , charset: Charset = StandardCharsets.UTF_8) =
     new String(bytes, StandardCharsets.UTF_8)
 }
+
+
 trait Implicitor {
   implicit def to(sql: String): StringImplicitor = StringImplicitor(sql)
   implicit def to(spark : SparkSession) : SparkSessionImplicitor = SparkSessionImplicitor(spark)

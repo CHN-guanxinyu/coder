@@ -1,3 +1,25 @@
+/**
+  * 封装了一些spark程序常用的对象
+  * 继承SimpleSpark特质之后可以直接方便的使用以下对象:
+  * --sc : SparkContext
+  * --spark : SparkSession
+  * --ssc : StreamingContext
+  *
+  * 一些内置的方法:
+  * --jdbc : (url , tableName , user , passwd) => DF
+  * --isWindows : => Boolean
+  *
+  * 一些内置的隐式转换
+  * --Any => String
+  * --`>>`
+  *
+  * 对于修改spark的配置,可以override以下变量:
+  * --def appName : default current className
+  * --def master : default local
+  * --def sparkConfOpts : default Map.empty
+  * for streaming:
+  * --def second : default 1
+  */
 package com.speful.spark.utils
 
 import java.io.PrintWriter
@@ -7,14 +29,6 @@ import org.apache.spark.graphx.{Edge, Graph}
 import org.apache.spark.sql.{DataFrame, SparkSession => Sss}
 import org.apache.spark.streaming.{Seconds, StreamingContext => Ssc}
 import org.apache.spark.{SparkConf => Sconf, SparkContext => Sc}
-
-private trait SimpleSparkCore
-
-private trait SimpleSparkSql
-
-private trait SimpleSparkGraphX
-
-private trait SimpleSparkStreaming
 
 trait SimpleSpark extends BaseEnv {
 
@@ -56,31 +70,6 @@ trait SimpleSpark extends BaseEnv {
 }
 
 
-/**
-  * 定义基本的默认参数、默认配置等信息
-  */
-object Defaults {
-  //spark streaming config
-  val concurrentJobs = 10
-  val backPressureEnabled = true
-  val dynamicAllocationEnabled = true
-
-  val second = 1
-
-  //spark config
-  val serializer: String = classOf[org.apache.spark.serializer.KryoSerializer].getName
-
-
-  //system properties
-  object systemProperties {
-    val taskMaxFailures = 50
-    val akkaTimeout = 99999
-    val networkTimeout = 99999
-  }
-
-}
-
-
 trait BaseEnv {
 
   //system env
@@ -91,7 +80,7 @@ trait BaseEnv {
 
   def sparkConfOpts: Map[String, String] = Map.empty
 
-  def second: Int = Defaults.second
+  def second: Int = 1
 
 
   final implicit def _2str: Any => String = _ toString
