@@ -1,12 +1,12 @@
 # coder
 
-##spark目录
+## spark目录
 ``这个项目主要对一些常用的spark操作进行封装,在此基础上用户可以方便的使用sc、spark、ssc等对象并且可以十分方便的覆盖一些默认配置。另外,还包括一些常用类型的隐式转换,方便用户使用链式函数调用风格编程``
-###目录结构
+### 目录结构
 com/speful<br>
 |_implicits ```一些常用的隐式转换``` <br>
 |_spark.utils ```spark工具包```
-###栗子
+### 栗子
 ```
 import com.speful.implicits._
 import com.speful.spark.utils._
